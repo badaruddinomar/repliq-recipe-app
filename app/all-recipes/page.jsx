@@ -27,21 +27,25 @@ const AllRecipes = () => {
     setRecipeId(id);
     setOpenDetails(true);
   };
-  if (isLoading) return <LoadingSpinner height="100vh" />;
+
   return (
     <div className="bg-gray-50 min-h-screen  lg:pt-[72px] pt-[56px]">
       <div className="container px-6 mx-auto md:px-12">
         <SearchInput />
         {/* products */}
-        <div className="grid gap-6 my-5 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-3">
-          {recipes?.map((recipe) => (
-            <RecipeCard
-              key={recipe?.idMeal}
-              recipe={recipe}
-              handleDetailsOpen={() => handleDetailsOpen(recipe?.idMeal)}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <LoadingSpinner height="50vh" />
+        ) : (
+          <div className="grid gap-6 my-5 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-3">
+            {recipes?.map((recipe) => (
+              <RecipeCard
+                key={recipe?.idMeal}
+                recipe={recipe}
+                handleDetailsOpen={() => handleDetailsOpen(recipe?.idMeal)}
+              />
+            ))}
+          </div>
+        )}
       </div>
       {/* Modal*/}
       <Modal isOpen={openDetails} setIsOpen={setOpenDetails}>
